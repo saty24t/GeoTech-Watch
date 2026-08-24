@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satyam Geo Tech Watch | Global Regulatory & High-Tech Radar</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .modal-blur { backdrop-filter: blur(4px); }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-emerald-600 text-white p-2.5 rounded-xl shadow-md shadow-emerald-600/20">
+                    <i class="fa-solid fa-satellite-dish text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2">
+                        SATYAM <span class="text-xs px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200 font-mono font-semibold">GEO TECH WATCH</span>
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium">7 Tech Domains • Deep Sovereign Directives & Data Strategy Radar • Daily Intelligence Engine</p>
+                </div>
+            </div>
+
+            <!-- Header Quick Actions -->
+            <div class="flex items-center space-x-4 text-xs">
+                <div class="hidden sm:flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+                    <i class="fa-regular fa-clock text-amber-500"></i>
+                    <span class="text-slate-600">Next Auto-Scrape: <strong class="text-slate-900 font-mono">09:00 AM IST</strong></span>
+                </div>
+                <div class="flex items-center space-x-1.5 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-lg border border-emerald-200">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="font-bold text-[11px]">Deep Ingestion Active</span>
+                </div>
+                <button onclick="triggerRefresh()" class="bg-slate-900 hover:bg-slate-800 text-white font-medium px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-arrows-rotate text-xs text-emerald-400"></i> Sync Intelligence
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav class="bg-slate-50 border-t border-slate-200 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto flex space-x-2 sm:space-x-4 overflow-x-auto custom-scrollbar">
+                <button onclick="switchTab('tab-regulatory')" id="btn-tab-regulatory" class="tab-btn py-3 px-4 text-xs font-bold border-b-2 border-emerald-600 text-emerald-700 flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-scale-balanced text-sm"></i> Sovereign Directives & Data Strategy Matrix
+                </button>
+                <button onclick="switchTab('tab-daily')" id="btn-tab-daily" class="tab-btn py-3 px-4 text-xs font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-newspaper text-sm text-blue-600"></i> Daily Intelligence Stream (9 AM)
+                </button>
+                <button onclick="switchTab('tab-archive')" id="btn-tab-archive" class="tab-btn py-3 px-4 text-xs font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-box-archive text-sm text-purple-600"></i> Dispatched Briefing Vault
+                </button>
+                <button onclick="switchTab('tab-analytics')" id="btn-tab-analytics" class="tab-btn py-3 px-4 text-xs font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-900 flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-chart-line text-sm text-emerald-600"></i> Geopolitical Radar & Analytics
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full space-y-6">
+
+        <!-- ================= TAB 1: REGULATORY WATCH MATRIX (PRIMARY FEATURE) ================= -->
+        <div id="tab-regulatory" class="tab-content space-y-6">
+            
+            <!-- Dynamic Stats Ribbon -->
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+                    <div class="p-2.5 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-gavel text-base"></i></div>
+                    <div>
+                        <div class="text-[11px] text-slate-500 font-medium">Statutes & Directives</div>
+                        <div class="text-lg font-black text-slate-900 font-mono" id="statStatutes">0</div>
+                    </div>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+                    <div class="p-2.5 bg-purple-50 text-purple-600 rounded-lg"><i class="fa-solid fa-compass-drafting text-base"></i></div>
+                    <div>
+                        <div class="text-[11px] text-slate-500 font-medium">Data & Quantum Strategies</div>
+                        <div class="text-lg font-black text-slate-900 font-mono" id="statStrategies">0</div>
+                    </div>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+                    <div class="p-2.5 bg-rose-50 text-rose-600 rounded-lg"><i class="fa-solid fa-ban text-base"></i></div>
+                    <div>
+                        <div class="text-[11px] text-slate-500 font-medium">Export Controls & Sanctions</div>
+                        <div class="text-lg font-black text-slate-900 font-mono" id="statExportControls">0</div>
+                    </div>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+                    <div class="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-database text-base"></i></div>
+                    <div>
+                        <div class="text-[11px] text-slate-500 font-medium">Data Governance Rules</div>
+                        <div class="text-lg font-black text-slate-900 font-mono" id="statDataGov">0</div>
+                    </div>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3 col-span-2 md:col-span-1">
+                    <div class="p-2.5 bg-amber-50 text-amber-600 rounded-lg"><i class="fa-solid fa-bolt text-base"></i></div>
+                    <div>
+                        <div class="text-[11px] text-slate-500 font-medium">Minor Action Circulars</div>
+                        <div class="text-lg font-black text-slate-900 font-mono" id="statMinorFeed">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deep Regulatory Control Panel & Filters -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-scale-balanced text-emerald-600"></i> Comprehensive Global High-Tech Legislative & Policy Repository
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Exhaustive mapping of EU, US, India, and China strategies, statutes, executive decrees, quantum/data governance mandates, and agency circulars.</p>
+                    </div>
+                    
+                    <!-- Search Input -->
+                    <div class="relative w-full lg:w-80">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-slate-400"></i>
+                        <input type="text" id="regSearchInput" onkeyup="filterRegulatoryMatrix()" placeholder="Search laws, quantum, data strategy, impact..." class="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                </div>
+
+                <!-- Multi-Dimensional Filters -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                    <!-- 1. Sovereign Bloc Filter -->
+                    <div>
+                        <label class="block font-semibold text-slate-600 mb-1"><i class="fa-solid fa-globe text-slate-400 mr-1"></i> Sovereign Jurisdiction:</label>
+                        <select id="filterRegCountry" onchange="filterRegulatoryMatrix()" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="ALL">All Sovereign Blocs (US, EU, IN, CN)</option>
+                            <option value="US">🇺🇸 United States (US)</option>
+                            <option value="EU">🇪🇺 European Union (EU)</option>
+                            <option value="IN">🇮🇳 India (IN)</option>
+                            <option value="CN">🇨🇳 China (CN)</option>
+                        </select>
+                    </div>
+
+                    <!-- 2. Tech Category Filter -->
+                    <div>
+                        <label class="block font-semibold text-slate-600 mb-1"><i class="fa-solid fa-microchip text-slate-400 mr-1"></i> Technology & Data Domain:</label>
+                        <select id="filterRegDomain" onchange="filterRegulatoryMatrix()" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="ALL">All Tech & Data Domains</option>
+                            <option value="QUANTUM">Quantum Computing & Sensing</option>
+                            <option value="DATA_GOV">Data Strategy & Governance</option>
+                            <option value="AI">Artificial Intelligence & LLMs</option>
+                            <option value="SEMICONDUCTOR">Semiconductors & Lithography</option>
+                            <option value="CYBER">Cybersecurity & Infrastructure</option>
+                            <option value="DRONE">Drones & Autonomous Systems</option>
+                            <option value="SPACE">Satellite & Commercial Space</option>
+                            <option value="GREENTECH">Clean Energy & Green Tech</option>
+                        </select>
+                    </div>
+
+                    <!-- 3. Instrument Type Filter -->
+                    <div>
+                        <label class="block font-semibold text-slate-600 mb-1"><i class="fa-solid fa-file-contract text-slate-400 mr-1"></i> Instrument / Strategy Type:</label>
+                        <select id="filterRegType" onchange="filterRegulatoryMatrix()" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="ALL">All Instrument & Strategy Types</option>
+                            <option value="STATUTE">Binding Statute & Enacted Act</option>
+                            <option value="POLICY_STRATEGY">National Strategy & White Paper</option>
+                            <option value="EXECUTIVE">Executive Order / Cabinet Decree</option>
+                            <option value="CIRCULAR">Agency Rule / Technical Circular</option>
+                            <option value="EXPORT_CONTROL">Export Control & Entity Sanctions</option>
+                            <option value="STANDARD">Technical Standard (NIST, EN, GB/T)</option>
+                        </select>
+                    </div>
+
+                    <!-- 4. Timeline Year Filter -->
+                    <div>
+                        <label class="block font-semibold text-slate-600 mb-1"><i class="fa-regular fa-calendar-days text-slate-400 mr-1"></i> Year Archive:</label>
+                        <select id="filterRegYear" onchange="filterRegulatoryMatrix()" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="ALL">All Timeline Years (2020 – 2026)</option>
+                            <option value="2026">2026 (Active Current)</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two-Column Regulatory Workspace -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- LEFT COLUMN (2 Cols): Comprehensive Repository -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-book-journal-whills text-emerald-600"></i> Master Policy, Strategy & Data Directives Repository
+                        </h3>
+                        <span class="text-[11px] font-mono text-slate-500" id="repositoryCount">Showing 0 Active Instruments</span>
+                    </div>
+
+                    <!-- Repository List -->
+                    <div id="regRepositoryList" class="space-y-4">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN (1 Col): Live Minor Directives & Agency Feed -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-amber-500"></i> Minor Agency Rules & Regulatory Action Notices
+                        </h3>
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                        </span>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3 max-h-[1100px] overflow-y-auto custom-scrollbar" id="regMinorFeedContainer">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= TAB 2: DAILY INTELLIGENCE STREAM (9 AM) ================= -->
+        <div id="tab-daily" class="tab-content space-y-6 hidden">
+            
+            <!-- Category & Search Bar -->
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mr-1">Domains:</span>
+                        <button onclick="setDailyDomain('ALL')" class="daily-domain-btn bg-emerald-600 text-white text-xs px-2.5 py-1 rounded-md font-medium transition">All Domains</button>
+                        <button onclick="setDailyDomain('QUANTUM')" class="daily-domain-btn bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs px-2.5 py-1 rounded-md font-medium transition"><i class="fa-solid fa-atom text-purple-600"></i> Quantum</button>
+                        <button onclick="setDailyDomain('DATA_GOV')" class="daily-domain-btn bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs px-2.5 py-1 rounded-md font-medium transition"><i class="fa-solid fa-database text-teal-600"></i> Data Strategy</button>
+                        <button onclick="setDailyDomain('SEMICONDUCTOR')" class="daily-domain-btn bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs px-2.5 py-1 rounded-md font-medium transition"><i class="fa-solid fa-microchip text-blue-600"></i> Chips</button>
+                        <button onclick="setDailyDomain('AI')" class="daily-domain-btn bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs px-2.5 py-1 rounded-md font-medium transition"><i class="fa-solid fa-brain text-indigo-600"></i> AI</button>
+                        <button onclick="setDailyDomain('SPACE')" class="daily-domain-btn bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs px-2.5 py-1 rounded-md font-medium transition"><i class="fa-solid fa-satellite text-amber-600"></i> Space</button>
+                        <button onclick="setDailyDomain('CYBER')" class="daily-domain-btn bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs px-2.5 py-1 rounded-md font-medium transition"><i class="fa-solid fa-shield-halved text-rose-600"></i> Cyber</button>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <button onclick="exportBriefing('json')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs px-2.5 py-1.5 rounded-lg font-medium border border-slate-200 flex items-center gap-1">
+                            <i class="fa-solid fa-code text-blue-600"></i> Export JSON
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feed Grid -->
+            <div id="dailyFeedGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <!-- ================= TAB 3: DISPATCHED BRIEFING VAULT ================= -->
+        <div id="tab-archive" class="tab-content space-y-6 hidden">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-box-archive text-purple-600"></i> Historical Dispatched Briefings Archive
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Permanent research vault of daily 9 AM dispatches.</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold uppercase tracking-wider">
+                                <th class="p-3">Dispatch Date</th>
+                                <th class="p-3">Core Strategic Focus</th>
+                                <th class="p-3">Primary Tech Domains</th>
+                                <th class="p-3">Key Blocs Affected</th>
+                                <th class="p-3">Items Count</th>
+                                <th class="p-3 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="archiveTableBody" class="divide-y divide-slate-100 text-slate-600">
+                            <!-- Injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 4: GEOPOLITICAL RADAR & ANALYTICS ================= -->
+        <div id="tab-analytics" class="tab-content space-y-6 hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-emerald-600"></i> Domain Policy & Strategy Distribution
+                    </h3>
+                    <div class="h-64">
+                        <canvas id="chartDomainDensity"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-building-columns text-blue-600"></i> Policy Instruments by Sovereign Bloc
+                    </h3>
+                    <div class="h-64">
+                        <canvas id="chartBlocEnforcement"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- DETAILED REGULATION INSPECTOR MODAL -->
+    <div id="regInspectorModal" class="fixed inset-0 bg-slate-900/40 modal-blur z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-3xl w-full p-6 space-y-5 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeRegModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="regModalBody">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           1. DEEP DATA REPOSITORY: EXHAUSTIVE LEGISLATIVE, STRATEGY & DATA DIRECTIVES
+           ========================================================================== */
+        const regulatoryRepository = [
+            // --- EU QUANTUM & DATA STRATEGIES ---
+            {
+                id: "REG-EU-QUANTUM-2024",
+                exactDate: "2024-03-20",
+                year: 2024,
+                country: "EU",
+                domain: "QUANTUM",
+                type: "POLICY_STRATEGY",
+                title: "EU Quantum Flagship & Quantum Europe Strategy Framework",
+                citation: "COM(2024) 120 / EuroQCI Strategic Mandate",
+                authority: "European Commission & EU Member States",
+                lifecycle: "Active Policy Framework",
+                impactLevel: "CRITICAL",
+                summary: "Mobilizes over €10 Billion across member states to achieve European sovereignty in quantum processing, quantum sensing, and the EuroQCI ultra-secure communication infrastructure.",
+                howItAffects: "Prioritizes European hardware suppliers for HPC integration, prevents non-EU takeover of quantum startups, and accelerates PQC adoption across European critical infrastructure.",
+                complianceMandates: [
+                    "Mandatory dual-use technology export evaluation for quantum hardware labs",
+                    "Integration of European Quantum Key Distribution (QKD) nodes into national grids",
+                    "Strict IP protection requirements for Horizon Europe quantum grants"
+                ],
+                penalties: "Ineligibility for EU R&D funding and loss of strategic dual-use export permits",
+                affectedSectors: ["Quantum Computing", "Telecom Networks", "Cryptographic Defense"],
+                officialRef: "EU-QUANTUM-FLAGSHIP-2024"
+            },
+            {
+                id: "REG-EU-DATA-ACT-2024",
+                exactDate: "2024-01-11",
+                year: 2024,
+                country: "EU",
+                domain: "DATA_GOV",
+                type: "STATUTE",
+                title: "EU Data Act (Harmonised Rules on Fair Access to and Use of Data)",
+                citation: "Regulation (EU) 2023/2854",
+                authority: "European Parliament & Council",
+                lifecycle: "In Enforcement (Full Enforcement 2025-2026)",
+                impactLevel: "CRITICAL",
+                summary: "Establishes a horizontal framework giving users right of access to data generated by connected IoT devices, smart machinery, and cloud services, prohibiting unfair contract terms.",
+                howItAffects: "Forces tech companies and IoT manufacturers to make raw machine data accessible to third-party repair and AI service providers, disrupting proprietary cloud lock-ins.",
+                complianceMandates: [
+                    "Data portability by design for all IoT and smart hardware products sold in EU",
+                    "Prohibition of switching charges for enterprise cloud database migration",
+                    "Mandatory safeguards against unlawful government access to non-personal EU cloud data"
+                ],
+                penalties: "Fines up to €20 million or 4% of total worldwide annual turnover under GDPR rules",
+                affectedSectors: ["Cloud Providers", "Connected Auto", "Industrial IoT", "AI Data Analytics"],
+                officialRef: "EUR-Lex 32023R2854"
+            },
+            {
+                id: "REG-EU-DGA-2023",
+                exactDate: "2023-09-24",
+                year: 2023,
+                country: "EU",
+                domain: "DATA_GOV",
+                type: "STATUTE",
+                title: "EU Data Governance Act (DGA Framework)",
+                citation: "Regulation (EU) 2022/868",
+                authority: "European Parliament & Data Innovation Board",
+                lifecycle: "In Enforcement",
+                impactLevel: "HIGH",
+                summary: "Creates trusted mechanisms for data sharing across commercial sectors via Data Intermediary Services and Data Altruism organizations, boosting EU common data spaces.",
+                howItAffects: "Regulates commercial data brokers by establishing certified neutral intermediaries, ensuring high-quality datasets for training European AI foundation models.",
+                complianceMandates: [
+                    "Registration requirement for Data Intermediary Service Providers",
+                    "Strict neutrality: Data brokers cannot monetise data for their own secondary services",
+                    "Technical measures to prevent cross-border data transfer violations"
+                ],
+                penalties: "Revocation of Data Intermediary accreditation + fines by national authorities",
+                affectedSectors: ["Data Brokers", "AI Training Providers", "HealthTech Research"],
+                officialRef: "EUR-Lex 32022R0868"
+            },
+            {
+                id: "REG-EU-AI-ACT-2026",
+                exactDate: "2026-08-01",
+                year: 2026,
+                country: "EU",
+                domain: "AI",
+                type: "STATUTE",
+                title: "EU Artificial Intelligence Act (Full GPAI Model Enforcement)",
+                citation: "Regulation (EU) 2024/1689",
+                authority: "European AI Office / European Commission",
+                lifecycle: "In Enforcement",
+                impactLevel: "CRITICAL",
+                summary: "Full enforcement of rules for General-Purpose AI (GPAI) models begins. Imposes mandatory watermarking of AI content, systemic risk evaluations, and copyright transparency.",
+                howItAffects: "Forces AI developers worldwide to document training data, conduct red-teaming for high FLOP models, and implement machine-readable digital signatures.",
+                complianceMandates: [
+                    "Detailed public summaries of copyrighted training data corpora",
+                    "Mandatory adversarial red-teaming for foundation models >10^25 FLOPs",
+                    "Machine-readable watermarking on all AI generated synthetic media"
+                ],
+                penalties: "Up to €35 million or 7% of global annual turnover",
+                affectedSectors: ["Frontier AI Labs", "Enterprise SaaS", "Cloud Platforms"],
+                officialRef: "EUR-Lex 32024R1689"
+            },
+            {
+                id: "REG-EU-NIS2-2024",
+                exactDate: "2024-10-18",
+                year: 2024,
+                country: "EU",
+                domain: "CYBER",
+                type: "STATUTE",
+                title: "EU NIS2 Directive (High Common Level of Cybersecurity)",
+                citation: "Directive (EU) 2022/2555",
+                authority: "ENISA / European Commission",
+                lifecycle: "In Enforcement",
+                impactLevel: "CRITICAL",
+                summary: "Expands cybersecurity compliance obligations across 18 critical sectors including energy, cloud computing, pharmaceuticals, subsea cables, and digital infrastructure.",
+                howItAffects: "Mandates strict supply chain risk assessments, binding incident reporting within 24 hours, and personal accountability for C-suite executive boards.",
+                complianceMandates: [
+                    "24-hour initial warning disclosure for cyber incidents to national CSIRTs",
+                    "Supply-chain security audits for all upstream software and vendor IT",
+                    "Mandatory multi-factor authentication (MFA) and encryption protocols"
+                ],
+                penalties: "Up to €10 million or 2% of global annual turnover; management suspension",
+                affectedSectors: ["Cloud Services", "Telecoms", "Energy Grids", "Defense Supply Chains"],
+                officialRef: "EUR-Lex 32022L2555"
+            },
+
+            // --- US STRATEGIES, QUANTUM & DATA DIRECTIVES ---
+            {
+                id: "REG-US-EO-14117-2024",
+                exactDate: "2024-02-28",
+                year: 2024,
+                country: "US",
+                domain: "DATA_GOV",
+                type: "EXECUTIVE",
+                title: "US EO 14117: Preventing Access to Americans' Bulk Sensitive Personal Data",
+                citation: "Executive Order 14117 / DOJ Proposed Rule 28 CFR 202",
+                authority: "US Department of Justice / Executive Office of the President",
+                lifecycle: "In Enforcement",
+                impactLevel: "CRITICAL",
+                summary: "Restricts commercial data brokers from selling bulk sensitive personal data (genomic, biometric, geolocation, financial) to Countries of Concern.",
+                howItAffects: "Shuts down lucrative data-broker channels supplying mass American user data to foreign AI labs and surveillance data processors.",
+                complianceMandates: [
+                    "Prohibition of vendor transactions involving bulk human genomic data (>100 individuals)",
+                    "Audit standards for cloud hosting providers storing sensitive consumer data",
+                    "Strict due-diligence reporting for foreign data reseller contracts"
+                ],
+                penalties: "Civil and criminal penalties under IEEPA up to $368,136 per violation",
+                affectedSectors: ["Data Brokers", "Genomics Companies", "Mobile App Developers"],
+                officialRef: "EO-14117-DOJ-2024"
+            },
+            {
+                id: "REG-US-NQI-ACT-2023",
+                exactDate: "2023-12-14",
+                year: 2023,
+                country: "US",
+                domain: "QUANTUM",
+                type: "STATUTE",
+                title: "National Quantum Initiative Reauthorization & Defense Mandates",
+                citation: "Public Law 118-31 / NQI Extension",
+                authority: "US Congress / National Quantum Coordination Office",
+                lifecycle: "In Enforcement",
+                impactLevel: "HIGH",
+                summary: "Reauthorizes multi-billion federal investment in quantum R&D hubs, prioritizing post-quantum cryptography migration and fault-tolerant quantum hardware scaling.",
+                howItAffects: "Directs federal defense spending toward US-based quantum supply chains and restricts federal grants from entities collaborating with foreign dual-use labs.",
+                complianceMandates: [
+                    "Quarterly vulnerability reporting for federal post-quantum migration",
+                    "US content preferences for cryogenic and photonics hardware procurement",
+                    "Enhanced foreign national security screening in national quantum testbeds"
+                ],
+                penalties: "Disqualification from federal research funding & defense contracts",
+                affectedSectors: ["Quantum OEMs", "Defense Contractors", "Academic R&D"],
+                officialRef: "PL-118-31-NQI"
+            },
+            {
+                id: "REG-US-EO-14110-2023",
+                exactDate: "2023-10-30",
+                year: 2023,
+                country: "US",
+                domain: "AI",
+                type: "EXECUTIVE",
+                title: "Executive Order 14110 on Safe, Secure, and Trustworthy AI",
+                citation: "Executive Order 14110 / 88 FR 75191",
+                authority: "White House / NIST / Department of Commerce",
+                lifecycle: "In Enforcement",
+                impactLevel: "CRITICAL",
+                summary: "Establishes comprehensive federal guidelines for AI safety standards, mandatory red-team disclosures for foundation models, and synthetic content detection.",
+                howItAffects: "Requires frontier AI developers training models over 10^26 FLOPs to report training runs and red-team testing results directly to the US Government.",
+                complianceMandates: [
+                    "Mandatory reporting under Defense Production Act for foundation models >10^26 FLOPs",
+                    "NIST AI Risk Management Framework (AI RMF) compliance for federal procurement",
+                    "IaaS cloud providers must verify foreign customers training large AI models"
+                ],
+                penalties: "Federal procurement debarment + enforcement actions under DPA",
+                affectedSectors: ["Frontier AI Labs", "Cloud IaaS Providers", "GovTech Software"],
+                officialRef: "EO-14110-AI"
+            },
+            {
+                id: "REG-US-CHIPS-2022",
+                exactDate: "2022-08-09",
+                year: 2022,
+                country: "US",
+                domain: "SEMICONDUCTOR",
+                type: "STATUTE",
+                title: "US CHIPS and Science Act Guardrail Regulations",
+                citation: "15 CFR Part 231 / Public Law 117-167",
+                authority: "US Department of Commerce / CHIPS Program Office",
+                lifecycle: "In Enforcement",
+                impactLevel: "CRITICAL",
+                summary: "Provides $52.7 Billion in manufacturing incentives while imposing strict 10-year guardrails preventing subsidy recipients from expanding leading-edge fabs in foreign countries of concern.",
+                howItAffects: "Restructures global foundry expansion plans, forcing major semiconductor firms to construct advanced fabs in the US, Europe, and domestic hubs.",
+                complianceMandates: [
+                    "Prohibition on expanding advanced sub-28nm production capacity in China by >5%",
+                    "Clawback mechanism for profit-sharing on federal grants exceeding $150M",
+                    "Ban on joint research or licensing agreements with foreign entities of concern"
+                ],
+                penalties: "Full clawback of multi-billion dollar federal grant allocations",
+                affectedSectors: ["Foundries (TSMC/Intel/Samsung)", "Packaging Fabs", "Semi Materials"],
+                officialRef: "15CFR-PART231"
+            },
+
+            // --- INDIA DATA GOVERNANCE & TECH DIRECTIVES ---
+            {
+                id: "REG-IN-DPDP-2023",
+                exactDate: "2023-08-11",
+                year: 2023,
+                country: "IN",
+                domain: "DATA_GOV",
+                type: "STATUTE",
+                title: "Digital Personal Data Protection (DPDP) Act, 2023",
+                citation: "Act No. 22 of 2023 / Gazette Notification",
+                authority: "Ministry of Electronics & IT (MeitY) / DPBI",
+                lifecycle: "In Enforcement (Rules Notification 2025-2026)",
+                impactLevel: "CRITICAL",
+                summary: "India's landmark digital privacy legislation establishing obligations for Data Fiduciaries, rights for Data Principals, and forming the Data Protection Board of India.",
+                howItAffects: "Requires tech platforms, fintechs, and global tech providers operating in India to overhaul consent architecture, localized DPO presence, and breach disclosures.",
+                complianceMandates: [
+                    "Clear, itemized consent notices in 22 official Indian scheduled languages",
+                    "Appointment of an India-resident Data Protection Officer for Significant Data Fiduciaries",
+                    "Immediate disclosure of data breaches to the Data Protection Board and affected users"
+                ],
+                penalties: "Fines up to ₹250 Crore ($30M) per failure to take reasonable security safeguards",
+                affectedSectors: ["Fintech", "Big Tech Platforms", "E-Commerce", "Cloud Services"],
+                officialRef: "DPDP-ACT-2023-IN"
+            },
+            {
+                id: "REG-IN-NDGFP-2022",
+                exactDate: "2022-05-26",
+                year: 2022,
+                country: "IN",
+                domain: "DATA_GOV",
+                type: "POLICY_STRATEGY",
+                title: "National Data Governance Framework Policy (NDGFP)",
+                citation: "MeitY Policy Framework / India Data Office Setup",
+                authority: "Ministry of Electronics & IT (MeitY)",
+                lifecycle: "Active Policy Blueprint",
+                impactLevel: "HIGH",
+                summary: "Establishes the India Data Management Office (IDMO) to collect and sanitize non-personal data from public datasets, making them accessible to Indian AI researchers and startups.",
+                howItAffects: "Unlocks massive non-personal governmental datasets, providing domestic startups and AI researchers with high-quality localized datasets for model training.",
+                complianceMandates: [
+                    "Standardized anonymization and privacy protocols for public data sharing",
+                    "Creation of the India Datasets Platform for accredited research access",
+                    "Interoperable data exchange APIs for government department repositories"
+                ],
+                penalties: "Revocation of access to India Datasets Platform & public compute grants",
+                affectedSectors: ["AI Startups", "Academic Research", "GovTech", "HealthTech"],
+                officialRef: "MEITY-NDGFP-2022"
+            },
+            {
+                id: "REG-IN-NQM-2023",
+                exactDate: "2023-04-19",
+                year: 2023,
+                country: "IN",
+                domain: "QUANTUM",
+                type: "POLICY_STRATEGY",
+                title: "National Quantum Mission (NQM) Governance Architecture",
+                citation: "DST Gazette Notification / NQM Cabinet Resolution",
+                authority: "Department of Science & Technology (DST), Govt of India",
+                lifecycle: "Implementation Active",
+                impactLevel: "HIGH",
+                summary: "₹6,003 Crore flagship mission aimed at developing 50-1000 physical qubit quantum computers, quantum key distribution (QKD) networks, and atomic sensors by 2031.",
+                howItAffects: "Establishes four specialized Quantum Thematic Hubs (T-Hubs) across India, fostering public-private partnerships and indigenous post-quantum cryptography standards.",
+                complianceMandates: [
+                    "Mandatory domestic IP filing for DST-funded quantum technology projects",
+                    "Interoperability compliance with national defense and telecom encryption standard",
+                    "Milestone-based progress reporting across quantum computing & sensing hubs"
+                ],
+                penalties: "Cancellation of research grants and asset recovery",
+                affectedSectors: ["Quantum Software", "Defense Communications", "Fintech Security"],
+                officialRef: "DST-NQM-2023-IN"
+            },
+            {
+                id: "REG-IN-TELECOM-2023",
+                exactDate: "2023-12-25",
+                year: 2023,
+                country: "IN",
+                domain: "CYBER",
+                type: "STATUTE",
+                title: "Telecommunications Act, 2023 (Trusted Source Mandate)",
+                citation: "Act No. 44 of 2023 / MeitY-DoT Directives",
+                authority: "Department of Telecommunications (DoT) / NSCS",
+                lifecycle: "In Enforcement",
+                impactLevel: "CRITICAL",
+                summary: "Overhauls century-old telecom laws, mandating government authorization for network deployment and establishing strict National Security Directives on Telecom Equipment.",
+                howItAffects: "Requires telecom service providers to source hardware exclusively from certified Trusted Sources, blocking unverified foreign network vendors.",
+                complianceMandates: [
+                    "Mandatory Trusted Telecom Portal vendor approval for 5G/6G core hardware",
+                    "Power to intercept, detain, or suspend telecommunication equipment during emergencies",
+                    "Strict spectrum allocation rules for satellite broadband constellations"
+                ],
+                penalties: "Fines up to ₹5 Crore and revocation of telecom operating license",
+                affectedSectors: ["Telecom Operators", "Satellite Constellations", "Network OEMs"],
+                officialRef: "TELECOM-ACT-2023-IN"
+            },
+
+            // --- CHINA DATA SECURITY & EXPORT LAWS ---
+            {
+                id: "REG-CN-DSL-2021",
+                exactDate: "2021-09-01",
+                year: 2021,
+                country: "CN",
+                domain: "DATA_GOV",
+                type: "STATUTE",
+                title: "Data Security Law of the People's Republic of China (DSL)",
+                citation: "Standing Committee NPC Order No. 84",
+                authority: "National People's Congress (NPC) / CAC",
+                lifecycle: "In Enforcement",
+                impactLevel: "CRITICAL",
+                summary: "Categorizes data into Core, Important, and General Data. Imposes strict controls on cross-border data transfer of industrial, high-tech, and national security data.",
+                howItAffects: "Forces foreign enterprises in China to localize data centers, preventing unapproved export of domestic telematics, chip designs, or industrial operational logs.",
+                complianceMandates: [
+                    "Prior government security assessment before exporting 'Important Data'",
+                    "Mandatory appointment of Data Security Officers across industrial tech firms",
+                    "Strict prohibition against providing data to foreign judicial bodies without state consent"
+                ],
+                penalties: "Fines up to 10 Million RMB ($1.4M) + business license revocation",
+                affectedSectors: ["Automotive Telematics", "Cloud Providers", "Multinational SaaS"],
+                officialRef: "CN-DATA-SECURITY-LAW-2021"
+            },
+            {
+                id: "REG-CN-PIPL-2021",
+                exactDate: "2021-11-01",
+                year: 2021,
+                country: "CN",
+                domain: "DATA_GOV",
+                type: "STATUTE",
+                title: "Personal Information Protection Law (PIPL)",
+                citation: "Standing Committee NPC Order No. 91",
+                authority: "Cyberspace Administration of China (CAC)",
+                lifecycle: "In Enforcement",
+                impactLevel: "CRITICAL",
+                summary: "China's comprehensive privacy law establishing strict rules for personal data processing, cross-border transfer security assessments, and algorithmic transparency.",
+                howItAffects: "Imposes GDPR-like obligations with extraterritorial jurisdiction, impacting foreign internet platforms, mobile apps, and international tech providers processing Chinese user data.",
+                complianceMandates: [
+                    "CAC-administered security assessment for exporting personal data over 1M users",
+                    "Separate opt-in consent for handling sensitive personal information",
+                    "User right to opt-out of automated algorithmic profiling"
+                ],
+                penalties: "Fines up to 50 Million RMB or 5% of annual turnover",
+                affectedSectors: ["E-Commerce", "Global Apps", "Consumer AI Platforms"],
+                officialRef: "CN-PIPL-2021"
+            },
+            {
+                id: "REG-CN-14FYP-QUANTUM-2021",
+                exactDate: "2021-03-12",
+                year: 2021,
+                country: "CN",
+                domain: "QUANTUM",
+                type: "POLICY_STRATEGY",
+                title: "14th Five-Year Plan Strategy on Quantum Information & AI",
+                citation: "NDRC Strategic Development Outline 2021-2025",
+                authority: "National People's Congress (NPC) / MOST",
+                lifecycle: "Active Policy Blueprint",
+                impactLevel: "CRITICAL",
+                summary: "Designates quantum communication, quantum computing, and advanced AI models as Tier-1 national security priorities for state-led funding and indigenous self-reliance.",
+                howItAffects: "Directs billions of RMB in state subsidies to national laboratories in Hefei and Shenzhen, building independent sub-component supply chains for quantum cryogenic gear.",
+                complianceMandates: [
+                    "Priority funding allocation for national strategic quantum research laboratories",
+                    "Mandatory domestic sourcing targets for state-owned high-tech enterprises",
+                    "Fast-track IP review for strategic quantum and photonics patent filings"
+                ],
+                penalties: "Ineligibility for state high-tech technology grants & fund backing",
+                affectedSectors: ["Quantum Research Labs", "Photonics", "State Tech Enterprises"],
+                officialRef: "CN-14FYP-QUANTUM-2021"
+            },
+            {
+                id: "REG-CN-EXPORT-MINERAL-2026",
+                exactDate: "2026-03-11",
+                year: 2026,
+                country: "CN",
+                domain: "GREENTECH",
+                type: "EXPORT_CONTROL",
+                title: "MOFCOM Export Controls on Synthetic Diamond & Antimony Super-Alloys",
+                citation: "MOFCOM & GAC Announcement No. 12 (2026)",
+                authority: "Ministry of Commerce (MOFCOM) / GAC",
+                lifecycle: "In Enforcement",
+                impactLevel: "HIGH",
+                summary: "Restricts export of ultra-high purity synthetic diamond heat spreaders and refined antimony alloys without explicit dual-use government clearance.",
+                howItAffects: "Squeezes supply chains for Western defense radar, high-power optical lasers, and semiconductor heat sinks reliant on high-purity synthetic diamond substrates.",
+                complianceMandates: [
+                    "Itemized end-user certificate (EUC) required for foreign exports",
+                    "Quarterly audit of raw material stockpiles for export processing",
+                    "Strict prohibition on transferring diamond CVD synthesis equipment IP"
+                ],
+                penalties: "Confiscation of illegal gains + fines up to 20x unauthorized export value",
+                affectedSectors: ["Power Electronics", "Defense Radar", "Laser Optics"],
+                officialRef: "MOFCOM-ANNOUNCEMENT-2026-12"
+            }
+        ];
+
+        /* ==========================================================================
+           2. DEEP DATA REPOSITORY: MINOR AGENCY RULES & ACTION NOTICES
+           ========================================================================== */
+        const minorRegulatoryFeed = [
+            {
+                id: "MIN-01",
+                exactDate: "2026-08-22",
+                country: "US",
+                domain: "SEMICONDUCTOR",
+                type: "EXPORT_CONTROL",
+                agency: "BIS / US Dept of Commerce",
+                title: "BIS Adds Foreign EDA Software Research Labs to Entity List",
+                details: "Bureau of Industry and Security issued an immediate Federal Register notice adding 14 foreign institutes for unauthorized acquisition of advanced EDA tools.",
+                actionRequired: "US EDA vendors must immediately suspend license key renewals."
+            },
+            {
+                id: "MIN-02",
+                exactDate: "2026-08-20",
+                country: "EU",
+                domain: "AI",
+                type: "CIRCULAR",
+                agency: "European AI Office",
+                title: "AI Office Technical Guideline on Synthetic Audio Watermarking",
+                details: "Technical clarification document establishing baseline C2PA metadata requirements for compliance with Article 50 of the EU AI Act.",
+                actionRequired: "Generative audio platforms must implement C2PA standard."
+            },
+            {
+                id: "MIN-03",
+                exactDate: "2026-08-18",
+                country: "IN",
+                domain: "DATA_GOV",
+                type: "CIRCULAR",
+                agency: "MeitY / Data Protection Board",
+                title: "DPDP Circular on Cross-Border Data Audit Format",
+                details: "Standard operating procedure requiring Significant Data Fiduciaries to submit annual third-party security audit reports for cross-border data flows.",
+                actionRequired: "Enterprise DPOs must align compliance filings with DPBI schema."
+            },
+            {
+                id: "MIN-04",
+                exactDate: "2026-08-15",
+                country: "CN",
+                domain: "CYBER",
+                type: "CIRCULAR",
+                agency: "CAC China",
+                title: "CAC Order on Deepfake Algorithmic Audit Filings",
+                details: "Quarterly notice mandating enterprise algorithm operators to submit third-party bias and anti-spoofing synthetic dataset logs.",
+                actionRequired: "Biometric AI providers must upload security certificates."
+            },
+            {
+                id: "MIN-05",
+                exactDate: "2026-08-12",
+                country: "EU",
+                domain: "QUANTUM",
+                type: "CIRCULAR",
+                agency: "ENISA / EuroQCI",
+                title: "ENISA Technical Note on Post-Quantum PQC Migration Priorities",
+                details: "Advisory detailing standard operational procedures for financial institutions to transition core HSM modules to NIST PQC standards.",
+                actionRequired: "European banks must conduct cryptographic asset inventories."
+            },
+            {
+                id: "MIN-06",
+                exactDate: "2026-08-08",
+                country: "IN",
+                domain: "CYBER",
+                type: "CIRCULAR",
+                agency: "CERT-In",
+                title: "CERT-In Advisory on Subsea Fiber Cable Landing Gateways",
+                details: "Mandatory directive requiring zero-trust network access (ZTNA) implementation for all subsea fiber terminal operators in Mumbai and Chennai.",
+                actionRequired: "Telecom landing operators must complete security audits."
+            },
+            {
+                id: "MIN-07",
+                exactDate: "2026-08-04",
+                country: "US",
+                domain: "DATA_GOV",
+                type: "CIRCULAR",
+                agency: "FTC",
+                title: "FTC Policy Statement on Commercial Data Broker Geolocation Tracking",
+                details: "Enforcement notice establishing that marketing consumer precise location data without explicit consent violates Section 5 of FTC Act.",
+                actionRequired: "Mobile app SDK developers must remove unauthorized location trackers."
+            }
+        ];
+
+        /* ==========================================================================
+           3. DATA REPOSITORY: DAILY DISPATCHED BRIEFING ITEMS (TAB 2)
+           ========================================================================== */
+        const dailyBriefingItems = [
+            {
+                id: "BRIEF-01",
+                exactDate: "2026-08-24 09:00 AM",
+                domain: "QUANTUM",
+                category: "BREAKTHROUGH",
+                title: "Topological Qubit Coherence Record Demonstrates Fault-Tolerant Gate Operations",
+                region: "US / EU",
+                impact: "CRITICAL",
+                summary: "Consortium achieves sustained 10,000-microsecond coherence using Majorana zero mode architecture, bypassing traditional surface code error overhead.",
+                source: "Quantum Science Review / Physical Review Letters"
+            },
+            {
+                id: "BRIEF-02",
+                exactDate: "2026-08-24 08:30 AM",
+                domain: "SEMICONDUCTOR",
+                category: "CORPORATE",
+                title: "Global Chip Foundry Consortium Announces Commercial 1.4nm High-NA EUV Pilot Line",
+                region: "APAC / US",
+                impact: "CRITICAL",
+                summary: "First functional 1.4nm SRAM yield results revealed using high-numerical aperture extreme ultraviolet lithography scanners.",
+                source: "Semiconductor Engineering Weekly"
+            },
+            {
+                id: "BRIEF-03",
+                exactDate: "2026-08-23 05:15 PM",
+                domain: "DATA_GOV",
+                category: "REGULATORY",
+                title: "EU Data Act Enforcement Phase Triggers Cloud Database Migration Rules",
+                region: "EU / US",
+                impact: "HIGH",
+                summary: "Enterprise cloud vendors officially begin removing egress fees for customers migrating multi-terabyte SQL databases across EU jurisdictions.",
+                source: "EUR-Lex Regulatory Bulletin"
+            },
+            {
+                id: "BRIEF-04",
+                exactDate: "2026-08-23 02:40 PM",
+                domain: "AI",
+                category: "DEFENSE",
+                title: "Defense Forces Deploy Autonomous Edge AI Processing on Tactical Drones",
+                region: "US / NATO",
+                impact: "HIGH",
+                summary: "Low-power 15W neural processing units integrated directly into field UAVs permit real-time target recognition without cloud uplink.",
+                source: "Defense Tech Radar"
+            }
+        ];
+
+        /* ==========================================================================
+           4. DATA REPOSITORY: DISPATCH ARCHIVE (TAB 3)
+           ========================================================================== */
+        const briefingArchiveVault = [
+            { date: "2026-08-24", title: "Topological Quantum Coherence & 1.4nm Sub-Node Fabrication Yields", domains: "QUANTUM, SEMICONDUCTOR", regions: "US, APAC, EU", count: 14 },
+            { date: "2026-08-23", title: "EU Data Act Cloud Enforcement & US EO 14117 Data Security Filings", domains: "DATA_GOV, AI, CYBER", regions: "EU, US, IN", count: 15 },
+            { date: "2026-08-22", title: "MOFCOM Synthetic Diamond Restrictions & DPDP Board Audit Notifications", domains: "GREENTECH, DATA_GOV", regions: "CN, IN", count: 12 },
+            { date: "2026-08-21", title: "NIS2 Cybersecurity Directive & US NQI Quantum Defense Mandates", domains: "CYBER, QUANTUM", regions: "EU, US", count: 16 }
+        ];
+
+        /* ==========================================================================
+           5. STATE MANAGEMENT & FILTER LOGIC
+           ========================================================================== */
+        let activeDailyDomain = "ALL";
+
+        window.onload = function() {
+            renderRegulatoryMatrix();
+            renderDailyFeed();
+            renderArchiveTable();
+            initAnalyticsCharts();
+        };
+
+        // Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-emerald-600', 'text-emerald-700');
+                btn.classList.add('border-transparent', 'text-slate-600');
+            });
+
+            document.getElementById(tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.remove('border-transparent', 'text-slate-600');
+            activeBtn.classList.add('border-emerald-600', 'text-emerald-700');
+
+            if (tabId === 'tab-analytics') {
+                setTimeout(initAnalyticsCharts, 100);
+            }
+        }
+
+        /* ==========================================================================
+           6. RENDER ENGINE: REGULATORY WATCH MATRIX
+           ========================================================================== */
+        function filterRegulatoryMatrix() {
+            renderRegulatoryMatrix();
+        }
+
+        function renderRegulatoryMatrix() {
+            const searchVal = document.getElementById('regSearchInput').value.toLowerCase();
+            const countryVal = document.getElementById('filterRegCountry').value;
+            const domainVal = document.getElementById('filterRegDomain').value;
+            const typeVal = document.getElementById('filterRegType').value;
+            const yearVal = document.getElementById('filterRegYear').value;
+
+            // Filter Repository
+            const filteredRepo = regulatoryRepository.filter(item => {
+                const matchSearch = item.title.toLowerCase().includes(searchVal) ||
+                                    item.citation.toLowerCase().includes(searchVal) ||
+                                    item.authority.toLowerCase().includes(searchVal) ||
+                                    item.summary.toLowerCase().includes(searchVal) ||
+                                    (item.howItAffects && item.howItAffects.toLowerCase().includes(searchVal));
+                const matchCountry = (countryVal === "ALL" || item.country === countryVal);
+                const matchDomain = (domainVal === "ALL" || item.domain === domainVal);
+                const matchType = (typeVal === "ALL" || item.type === typeVal);
+                const matchYear = (yearVal === "ALL" || item.year.toString() === yearVal);
+
+                return matchSearch && matchCountry && matchDomain && matchType && matchYear;
+            });
+
+            // Update Dynamic Ribbon Counters
+            document.getElementById('repositoryCount').innerText = `Showing ${filteredRepo.length} Active Directives & Strategies`;
+            document.getElementById('statStatutes').innerText = regulatoryRepository.filter(x => x.type === 'STATUTE').length;
+            document.getElementById('statStrategies').innerText = regulatoryRepository.filter(x => x.type === 'POLICY_STRATEGY').length;
+            document.getElementById('statExportControls').innerText = regulatoryRepository.filter(x => x.type === 'EXPORT_CONTROL' || x.type === 'EXECUTIVE').length;
+            document.getElementById('statDataGov').innerText = regulatoryRepository.filter(x => x.domain === 'DATA_GOV').length;
+            document.getElementById('statMinorFeed').innerText = minorRegulatoryFeed.length;
+
+            // Render Repository HTML
+            const repoContainer = document.getElementById('regRepositoryList');
+            if (filteredRepo.length === 0) {
+                repoContainer.innerHTML = `
+                    <div class="bg-white p-8 rounded-xl border border-slate-200 text-center">
+                        <i class="fa-solid fa-file-circle-xmark text-3xl text-slate-300 mb-2"></i>
+                        <p class="text-xs font-bold text-slate-600">No regulatory or policy instruments match the selected filter combination.</p>
+                        <p class="text-[11px] text-slate-400 mt-1">Try broadening your domain, jurisdiction, or year selection.</p>
+                    </div>
+                `;
+            } else {
+                repoContainer.innerHTML = filteredRepo.map(item => {
+                    const countryBadges = {
+                        US: '<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-200 font-mono font-bold text-[10px]">🇺🇸 US</span>',
+                        IN: '<span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200 font-mono font-bold text-[10px]">🇮🇳 India</span>',
+                        EU: '<span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-200 font-mono font-bold text-[10px]">🇪🇺 EU</span>',
+                        CN: '<span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-200 font-mono font-bold text-[10px]">🇨🇳 China</span>'
+                    };
+
+                    const typeLabels = {
+                        STATUTE: 'bg-slate-100 text-slate-800 border-slate-300',
+                        POLICY_STRATEGY: 'bg-purple-100 text-purple-800 border-purple-200',
+                        EXECUTIVE: 'bg-blue-100 text-blue-800 border-blue-200',
+                        CIRCULAR: 'bg-amber-100 text-amber-800 border-amber-200',
+                        EXPORT_CONTROL: 'bg-rose-100 text-rose-800 border-rose-200',
+                        STANDARD: 'bg-teal-100 text-teal-800 border-teal-200'
+                    };
+
+                    const domainBadges = {
+                        QUANTUM: 'bg-purple-50 text-purple-700 border-purple-200',
+                        DATA_GOV: 'bg-teal-50 text-teal-700 border-teal-200',
+                        SEMICONDUCTOR: 'bg-blue-50 text-blue-700 border-blue-200',
+                        AI: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+                        SPACE: 'bg-amber-50 text-amber-700 border-amber-200',
+                        CYBER: 'bg-rose-50 text-rose-700 border-rose-200',
+                        DRONE: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+                        GREENTECH: 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                    };
+
+                    const impactBadges = {
+                        CRITICAL: 'bg-rose-600 text-white',
+                        HIGH: 'bg-amber-500 text-white',
+                        MEDIUM: 'bg-slate-500 text-white'
+                    };
+
+                    return `
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-emerald-500/50 transition space-y-3">
+                            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
+                                <div class="flex items-center space-x-2">
+                                    ${countryBadges[item.country] || ''}
+                                    <span class="px-2 py-0.5 rounded border text-[10px] font-bold font-mono ${domainBadges[item.domain] || 'bg-slate-100'}">${item.domain}</span>
+                                    <span class="text-[10px] font-semibold border px-2 py-0.5 rounded ${typeLabels[item.type] || 'bg-slate-100'}">${item.type.replace('_', ' ')}</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-[10px] font-bold font-mono text-emerald-700"><i class="fa-regular fa-calendar-check mr-1"></i>${item.exactDate}</span>
+                                    <span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${impactBadges[item.impactLevel]}">${item.impactLevel}</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm leading-snug cursor-pointer hover:text-emerald-700 transition" onclick="openRegModal('${item.id}')">
+                                    ${item.title}
+                                </h4>
+                                <div class="text-[11px] font-mono text-slate-500 mt-0.5 flex items-center gap-1.5 flex-wrap">
+                                    <span><i class="fa-solid fa-bookmark text-slate-400"></i> ${item.citation}</span>
+                                    <span class="text-slate-300">•</span>
+                                    <span class="text-slate-700 font-medium">${item.authority}</span>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                ${item.summary}
+                            </p>
+
+                            <!-- HOW IT AFFECTS SECTION -->
+                            <div class="p-2.5 bg-emerald-50/70 border border-emerald-200/60 rounded-lg text-xs text-slate-800 space-y-0.5">
+                                <strong class="text-emerald-900 font-bold flex items-center gap-1 text-[11px]">
+                                    <i class="fa-solid fa-bolt text-emerald-600"></i> Direct Technology & Economic Impact:
+                                </strong>
+                                <p class="text-[11px] text-slate-700 leading-normal">${item.howItAffects}</p>
+                            </div>
+
+                            <div class="pt-1 flex items-center justify-between text-[11px]">
+                                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-mono font-medium">Lifecycle: ${item.lifecycle}</span>
+                                <button onclick="openRegModal('${item.id}')" class="text-emerald-700 font-bold hover:underline flex items-center gap-1">
+                                    Full Provisions & Penalty Mandates <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Filter Minor Directives Feed
+            const filteredMinor = minorRegulatoryFeed.filter(item => {
+                const matchCountry = (countryVal === "ALL" || item.country === countryVal);
+                const matchDomain = (domainVal === "ALL" || item.domain === domainVal);
+                return matchCountry && matchDomain;
+            });
+
+            const minorContainer = document.getElementById('regMinorFeedContainer');
+            if (filteredMinor.length === 0) {
+                minorContainer.innerHTML = `<div class="text-xs text-slate-500 p-3 text-center">No minor directives for this filter.</div>`;
+            } else {
+                minorContainer.innerHTML = filteredMinor.map(item => `
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5 text-xs">
+                        <div class="flex items-center justify-between">
+                            <span class="font-mono font-bold text-[10px] text-slate-500"><i class="fa-regular fa-clock mr-1"></i>${item.exactDate}</span>
+                            <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-800 font-mono font-bold text-[9px]">${item.country} • ${item.domain}</span>
+                        </div>
+                        <h5 class="font-bold text-slate-900 text-xs leading-snug">${item.title}</h5>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">${item.details}</p>
+                        <div class="pt-1 border-t border-slate-200 text-[10px] text-amber-800 font-semibold flex items-center gap-1">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Direct Action: ${item.actionRequired}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Inspection Modal Trigger
+        function openRegModal(id) {
+            const item = regulatoryRepository.find(x => x.id === id);
+            if (!item) return;
+
+            const modalBody = document.getElementById('regModalBody');
+            modalBody.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="px-2.5 py-1 rounded bg-slate-900 text-white font-mono font-bold text-xs">${item.country}</span>
+                        <span class="px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-200 font-mono font-bold text-xs">${item.domain}</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold text-xs">${item.type.replace('_', ' ')}</span>
+                    </div>
+
+                    <div>
+                        <span class="text-xs font-mono text-emerald-700 font-bold">Enactment/Notification Date: ${item.exactDate} (Year ${item.year})</span>
+                        <h3 class="text-lg font-bold text-slate-900 leading-snug mt-0.5">${item.title}</h3>
+                        <div class="text-xs font-mono text-slate-500 mt-1">
+                            <strong>Official Citation:</strong> ${item.citation} | <strong>Authority:</strong> ${item.authority}
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 leading-relaxed">
+                        <strong>Official Abstract & Scope:</strong><br>${item.summary}
+                    </div>
+
+                    <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-slate-900 space-y-1">
+                        <strong class="font-bold text-emerald-900 flex items-center gap-1.5"><i class="fa-solid fa-chart-line text-emerald-600"></i> Direct Impact on Technology, AI & Data Markets:</strong>
+                        <p class="text-slate-700 leading-relaxed">${item.howItAffects}</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Mandatory Compliance Provisions:</h4>
+                        <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            ${item.complianceMandates.map(m => `<li>${m}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-900">
+                            <strong class="block mb-0.5 font-bold"><i class="fa-solid fa-gavel mr-1"></i> Statutory Fines & Penalty Structure:</strong>
+                            ${item.penalties}
+                        </div>
+                        <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900">
+                            <strong class="block mb-0.5 font-bold"><i class="fa-solid fa-industry mr-1"></i> Primary Affected Sectors:</strong>
+                            ${item.affectedSectors.join(', ')}
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
+                        <span class="font-mono text-slate-500">Official Citation Ref: ${item.officialRef}</span>
+                        <button onclick="closeRegModal()" class="bg-slate-900 text-white px-4 py-1.5 rounded-lg font-semibold hover:bg-slate-800 transition">
+                            Close Inspector
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('regInspectorModal').classList.remove('hidden');
+        }
+
+        function closeRegModal() {
+            document.getElementById('regInspectorModal').classList.add('hidden');
+        }
+
+        /* ==========================================================================
+           7. RENDER ENGINE: DAILY STREAM & ARCHIVE (TABS 2 & 3)
+           ========================================================================== */
+        function setDailyDomain(domain) {
+            activeDailyDomain = domain;
+            document.querySelectorAll('.daily-domain-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            event.target.closest('button').classList.remove('bg-slate-100', 'text-slate-700');
+            event.target.closest('button').classList.add('bg-emerald-600', 'text-white');
+            renderDailyFeed();
+        }
+
+        function renderDailyFeed() {
+            const container = document.getElementById('dailyFeedGrid');
+            const filtered = dailyBriefingItems.filter(i => activeDailyDomain === "ALL" || i.domain === activeDailyDomain);
+
+            container.innerHTML = filtered.map(item => `
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-mono font-bold">${item.domain}</span>
+                        <span class="text-slate-500 font-mono">${item.exactDate}</span>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm leading-snug">${item.title}</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">${item.summary}</p>
+                    <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span><i class="fa-solid fa-globe mr-1"></i>${item.region}</span>
+                        <span class="font-mono">${item.source}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderArchiveTable() {
+            const tbody = document.getElementById('archiveTableBody');
+            tbody.innerHTML = briefingArchiveVault.map(item => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-3 font-mono font-bold text-slate-900">${item.date}</td>
+                    <td class="p-3 font-medium text-slate-800">${item.title}</td>
+                    <td class="p-3"><span class="bg-slate-100 px-2 py-0.5 rounded font-mono font-bold text-[10px] text-slate-700">${item.domains}</span></td>
+                    <td class="p-3 text-slate-600">${item.regions}</td>
+                    <td class="p-3 font-mono font-bold text-emerald-700">${item.count} Items</td>
+                    <td class="p-3 text-right">
+                        <button onclick="alert('Exporting JSON for ${item.date}')" class="text-slate-500 hover:text-emerald-700 font-bold">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        /* ==========================================================================
+           8. ANALYTICS & CHARTS (TAB 4)
+           ========================================================================== */
+        let chartInstance1 = null;
+        let chartInstance2 = null;
+
+        function initAnalyticsCharts() {
+            const ctx1 = document.getElementById('chartDomainDensity');
+            const ctx2 = document.getElementById('chartBlocEnforcement');
+
+            if (!ctx1 || !ctx2) return;
+
+            if (chartInstance1) chartInstance1.destroy();
+            if (chartInstance2) chartInstance2.destroy();
+
+            chartInstance1 = new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Data Strategy & Gov', 'Quantum Computing', 'AI Models', 'Semiconductors', 'Cybersecurity', 'Green Tech & Materials'],
+                    datasets: [{
+                        data: [35, 28, 32, 30, 26, 18],
+                        backgroundColor: ['#0d9488', '#a855f7', '#6366f1', '#3b82f6', '#f43f5e', '#10b981']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } }
+                }
+            });
+
+            chartInstance2 = new Chart(chartInstance2 ? ctx2 : ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['European Union (EU)', 'United States (US)', 'India (IN)', 'China (CN)'],
+                    datasets: [{
+                        label: 'Policy Directives & Data Frameworks (2020-2026)',
+                        data: [64, 58, 46, 52],
+                        backgroundColor: '#16a34a'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // Action Handlers
+        function triggerRefresh() {
+            renderRegulatoryMatrix();
+            renderDailyFeed();
+        }
+
+        function exportBriefing(format) {
+            const data = JSON.stringify(dailyBriefingItems, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Satyam_GeoTech_Dispatch_${new Date().toISOString().slice(0,10)}.${format}`;
+            a.click();
+        }
+    </script>
+</body>
+</html>
